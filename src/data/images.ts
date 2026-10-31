@@ -12,16 +12,16 @@ export const images = {
   office: "/images/interiors/office.jpg",
   renovation: "/images/interiors/renovation.jpg",
   furniture: "/images/interiors/furniture.jpg",
-  wardrobe: "/images/interiors/wardrobe.jpg",
+  wardrobe: "/images/interiors/wardrobes.jpg",
   lounge: "/images/interiors/lounge.jpg",
-  whyChoose: "/images/interiors/why-choose.jpg",
+  whyChoose: "/images/interiors/why-choose.jpeg",
 
   // About
-  aboutHero: "/images/interiors/about-hero.jpg",
-  approach: "/images/interiors/approach.jpg",
-  detailDining: "/images/interiors/detail-dining.jpg",
-  detailLights: "/images/interiors/detail-lights.jpg",
-  detailBedroom: "/images/interiors/detail-bedroom.jpg",
+  aboutHero: "/images/interiors/about-hero.png",
+  approach: "/images/interiors/approach.png",
+  detailDining: "/images/interiors/detail-dining.png",
+  detailLights: "/images/interiors/detail-lights.png",
+  detailBedroom: "/images/interiors/detail-bedroom.png",
 
   // Gallery
   galleryKitchenWhite: "/images/interiors/gallery-kitchen-white.jpg",
