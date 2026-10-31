@@ -33,14 +33,14 @@ export const galleryItems: GalleryItem[] = [
     alt: "Illustrative bright living room with a teal sofa, marble floor and sheer curtains",
     aspect: "landscape",
   },
-  {
-    id: "kitchen-white",
-    title: "Minimal White Kitchen",
-    category: "Kitchens",
-    image: images.galleryKitchenWhite,
-    alt: "Illustrative minimal white kitchen with integrated appliances and a slim light strip",
-    aspect: "portrait",
-  },
+  // {
+  //   id: "kitchen-white",
+  //   title: "Minimal White Kitchen",
+  //   category: "Kitchens",
+  //   image: images.galleryKitchenWhite,
+  //   alt: "Illustrative minimal white kitchen with integrated appliances and a slim light strip",
+  //   aspect: "portrait",
+  // },
   {
     id: "living-beige",
     title: "Warm Neutral Living Space",
