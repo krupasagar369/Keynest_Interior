@@ -120,7 +120,7 @@ function EnquiryDialog({
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = previousOverflow;
+      document.body.style.overflow = "";
       previouslyFocused?.focus();
     };
   }, [onClose]);

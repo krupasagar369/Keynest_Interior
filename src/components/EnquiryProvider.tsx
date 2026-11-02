@@ -41,7 +41,8 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
     setOpen(true);
   }, []);
 
-  // Auto-open once per session, only on the homepage, after ~1 second.
+  // Auto-open once per session, only on the homepage, 1 second after the
+  // intro video has finished (or right away if the intro was already seen).
   useEffect(() => {
     if (pathname !== "/") return;
 
@@ -51,18 +52,38 @@ export function EnquiryProvider({ children }: { children: React.ReactNode }) {
       /* storage unavailable: still show once per page load */
     }
 
-    const timer = setTimeout(() => {
-      setProjectType("");
-      setMessage("");
-      setOpen(true);
-      try {
-        sessionStorage.setItem(SESSION_KEY, "1");
-      } catch {
-        /* ignore */
-      }
-    }, 1000);
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
-    return () => clearTimeout(timer);
+    const schedule = () => {
+      timer = setTimeout(() => {
+        setProjectType("");
+        setMessage("");
+        setOpen(true);
+        try {
+          sessionStorage.setItem(SESSION_KEY, "1");
+        } catch {
+          /* ignore */
+        }
+      }, 1000);
+    };
+
+    let introSeen = false;
+    try {
+      introSeen = !!sessionStorage.getItem("keynest-intro-seen");
+    } catch {
+      /* ignore */
+    }
+
+    if (introSeen) {
+      schedule();
+    } else {
+      window.addEventListener("keynest:intro-done", schedule, { once: true });
+    }
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("keynest:intro-done", schedule);
+    };
   }, [pathname]);
 
   const value = useMemo(() => ({ openEnquiry }), [openEnquiry]);

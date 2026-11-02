@@ -20,8 +20,8 @@ export const siteConfig = {
   ],
 
   whatsapp: {
-    number: "919494785011",
-    display: "+91 94947 85011",
+    number: "919620599987",
+    display: "+91 96205 99987",
     defaultMessage:
       "Hello KeyNest Interiors, I would like to know more about your interior design services.",
   },

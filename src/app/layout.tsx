@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { IntroVideo } from "@/components/IntroVideo";
 import { DM_Sans, Manrope } from "next/font/google";
 import "./globals.css";
 import { EnquiryProvider } from "@/components/EnquiryProvider";
@@ -48,6 +49,7 @@ export default function RootLayout({
     <html lang="en" className={`${manrope.variable} ${dmSans.variable}`}>
       <body>
         <MotionProvider>
+          <IntroVideo />
           <EnquiryProvider>
             <Header />
             <main>{children}</main>
