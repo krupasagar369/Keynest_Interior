@@ -3,19 +3,28 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-const VIDEO_SRC = "/videos/intro.mp4";
+const DESKTOP_VIDEO = "/videos/intro.mp4";
+const MOBILE_VIDEO = "/videos/intro-mobile.mp4";
+const MOBILE_QUERY = "(max-width: 767px)";
 const STORAGE_KEY = "keynest-intro-seen";
 
 export function IntroVideo() {
   const [show, setShow] = useState(true);
+  const [src, setSrc] = useState<string | null>(null);
   const [needsTap, setNeedsTap] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Skip the intro if the visitor already saw it in this session.
+  // Skip if already seen this session, otherwise pick the right video.
   useEffect(() => {
     try {
-      if (sessionStorage.getItem(STORAGE_KEY)) setShow(false);
+      if (sessionStorage.getItem(STORAGE_KEY)) {
+        setShow(false);
+        return;
+      }
     } catch {}
+    setSrc(
+      window.matchMedia(MOBILE_QUERY).matches ? MOBILE_VIDEO : DESKTOP_VIDEO,
+    );
   }, []);
 
   // Lock page scroll while the video is on screen, always unlock after.
@@ -29,16 +38,15 @@ export function IntroVideo() {
 
   // Some browsers block autoplay; show a Play button if that happens.
   useEffect(() => {
-    if (!show) return;
+    if (!show || !src) return;
     videoRef.current?.play().catch(() => setNeedsTap(true));
-  }, [show]);
+  }, [show, src]);
 
   function finish() {
     try {
       sessionStorage.setItem(STORAGE_KEY, "1");
     } catch {}
     setShow(false);
-    // Tell the rest of the site the intro is over (popup waits for this).
     window.dispatchEvent(new Event("keynest:intro-done"));
   }
 
@@ -52,17 +60,19 @@ export function IntroVideo() {
           exit={{ y: "-100%" }}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          <video
-            ref={videoRef}
-            src={VIDEO_SRC}
-            className="h-full w-full object-cover"
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
-            onEnded={finish}
-            onError={finish}
-          />
+          {src && (
+            <video
+              ref={videoRef}
+              src={src}
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              onEnded={finish}
+              onError={finish}
+            />
+          )}
 
           {needsTap && (
             <button
