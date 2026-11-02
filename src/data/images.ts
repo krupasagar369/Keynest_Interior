@@ -14,7 +14,7 @@ export const images = {
   furniture: "/images/interiors/furniture.jpg",
   wardrobe: "/images/interiors/wardrobes.jpg",
   lounge: "/images/interiors/lounge.jpg",
-  whyChoose: "/images/interiors/why-choose.jpeg",
+  whyChoose: "/images/interiors/whychoose.jpeg",
 
   // About
   aboutHero: "/images/interiors/about-hero.png",
